@@ -1,47 +1,77 @@
-void main() {
-  //? Exemplo - loop?
-  // print('Primeira linha');
-  // final result = 1 + 5;
-  // print('Resultado: $result');
-  // myFunction();
+// void main() {
+//* Invocações
+// final result = sum();
+// final result2 = 1 + result;
+// }
 
-  // final list = [1, 2, 3];
-  // print(list);
-
-  // print('Primeira linha');
-  // final result2 = 1 + 5;
-  // print('Resultado: $result2');
-  // myFunction();
-
-  // print('Primeira linha');
-  // final result3 = 1 + 5;
-  // print('Resultado: $result3');
-  // myFunction();
-
-  //* Tipo Function - variável, () ou .call
-  // final function = myFunction;
-  // final function = myArrowFunction;
-  // function();
-  // function.call();
-
-  //* Arrow - expressões
-  myArrowFunction();
-
-  //* First-class
-  final list = [1, 2, 3];
-  list.forEach(print);
-  print;
-}
-
-//* Conceito
+//* Tipagem
 // [tipo] functionName() {
 //   Código
 // }
-void myFunction() {
-  // print('Primeira linha');
-  myArrowFunction();
-  final result3 = 1 * 5;
-  print('Resultado: $result3');
+
+// int sum() {
+//   return 1 + 1;
+// }
+
+// sum() {
+//   return 'String';
+// }
+
+//* return
+// String concatente(String firstName, String secondName) {
+//   final fullName = '$firstName $secondName';
+//   return fullName;
+// }
+
+// void doSomething() {}
+
+//* Calculadora
+import 'dart:io';
+
+void main() {
+  // Nao deletar
+  final inputs = readFromKeyboard(stdin.readLineSync() ?? '');
+
+  // Variaveis iniciais
+  final number1 = double.parse(inputs[0]);
+  final operator = inputs[1];
+  final number2 = double.parse(inputs[2]);
+
+  // Escreva seu programa a partir daqui
+  final result = calculate(number1, operator, number2);
+  final msg = formatMessage(result);
+  print(msg);
 }
 
-void myArrowFunction() => print('Primeira linha');
+List<String> readFromKeyboard(String line) {
+  if (line.isEmpty) exit(0);
+  return line.split(' ');
+}
+
+double calculate(double number1, String operator, double number2) {
+  switch (operator) {
+    case '-':
+      return number1 - number2;
+    case '*':
+      return number1 * number2;
+    case '/':
+      return number1 / number2;
+    default:
+      return number1 + number2;
+  }
+}
+
+String formatMessage(double result) {
+  final resultAprox = result.toStringAsFixed(5);
+  final resultInteiro = result ~/ 1;
+  final resultResto = result % 1;
+
+  return resultResto > 0
+      ? double.parse(resultAprox).toString()
+      : resultInteiro.toString();
+  // if (resultResto != 0) {
+  //   return double.parse(resultAprox).toString();
+  // } else {
+  //   return resultInteiro.toString();
+  // }
+}
